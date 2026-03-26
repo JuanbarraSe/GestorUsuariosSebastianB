@@ -1,0 +1,23 @@
+body{
+    background-color: #ff9203;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    font-weight: bold;
+}
+
+.container{
+    margin: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+button{
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
