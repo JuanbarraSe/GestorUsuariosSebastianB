@@ -24,12 +24,39 @@
                     <button class="btn btn-danger">
                         Ver Usuarios
                     </button>
-                    <a href="{{url_for('salir')}}" class="btn btn-success">
-                        Cerrar Sesion
-                    </a>
+                    <a href="{{url_for('salir')}}" class="btn btn-success">Cerrar Sesion</a>
                 </div>
                 <!--Llamar al modal-->
                 {% include 'registrarusu.html' %}
+                <table class="table table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <td>Codigo</td>
+                            <td>Usuario</td>
+                            <td>Contraseña</td>
+                            <td>Rol</td>
+                            <td>Opciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in user %}
+                        <tr>
+                            <td>{{ u[0]}}</td>
+                            <td>{{ u[1]}}</td>
+                            <td>{{ u[2]}}</td>
+                            <td>{{ u[3]}}</td>
+                            <td>
+                                <a href="" class="btn btn-warning btn-sm">Editar</a>
+
+                                <a href="{{ url_for('eliminarusu', id=u[0]) }}" class="btn btn-primary btn-sm"
+                                onclick = "return confirm('¿Seguro que desea eliminar el usuario')">Eliminar</a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>

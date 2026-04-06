@@ -34,7 +34,7 @@ def login_form():
             #if rol == rol:
 
             if user[3] == "Administrador":
-                return render_template("index.html")
+                return redirect(url_for('inicio'))
             else:
                 return "Bienvenido empleado"
     else: 
@@ -45,13 +45,53 @@ def login_form():
 def inicio():
      if "usuario" not in session:
           return redirect(url_for("login"))
-     else:
-          render_template("index.html")
+     
+     con = conectar()
+     cursor = con.cursor()
+
+     cursor.execute("SELECT * FROM usuarios")
+     lista = cursor.fetchall()
+
+     con.close()
+     cursor.close()
+
+     return render_template("index.html", user=lista)
 
 #Cerrar la sesion
 @apps.route("/salir")
 def salir():
      session.clear()
      return redirect(url_for("login"))  
+
+#Crear una ruta para eliminar los usuarios tipos usuarios
+@apps.route("/Eliminar/<int:id>")
+def eliminarusu(id):
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+    
+    con = conectar()
+    cursor = con.cursor()
+
+    #Buscar el usuario
+    sql = "SELECT rol FROM usuarios WHERE idUsuario=%s"
+    cursor.execute(sql,(id,))
+
+    usuario = cursor.fetchone()
+
+    #Validar el rol del usuario
+    if usuario:
+         rol = usuario[0]
+
+         if rol == "Administrador":
+              flash("No se puede eliminar el administrador")
+
+         else:
+              cursor.execute("DELETE FROM usuarios WHERE idUsuario=%s",(id,))
+              con.commit()
+              flash("Empleado eliminado")
+
+    cursor.close()
+    con.close()
+    return redirect(url_for("inicio"))
 if __name__ == "__main__":
     apps.run(debug=True)
