@@ -21,13 +21,14 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                         Registrar Usuario
                     </button>
-                    <button class="btn btn-danger">
-                        Ver Usuarios
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal2">
+                        Registrar Empleados
                     </button>
                     <a href="{{url_for('salir')}}" class="btn btn-success">Cerrar Sesion</a>
                 </div>
                 <!--Llamar al modal-->
                 {% include 'registrarusu.html' %}
+                {% include 'registrarempleado.html' %}
                 <table class="table table-bordered mt-3">
                     <thead class="table-dark">
                         <tr>
@@ -57,6 +58,47 @@
                         
                     </tbody>
                 </table>
+                <table class="table table-bordered mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <td>Codigo</td>
+                        <td>Documento Empleado</td>
+                        <td>Nombre Empleado</td>
+                        <td>Apellido Empleado</td>
+                        <td>Cargo</td>
+                        <td>Salario Base</td>
+                        <td>Horas Extra</td>
+                        <td>Bonificación</td>
+                        <td>Salud</td>
+                        <td>Pensión</td>
+                        <td>Salario Neto</td>
+                        <td>Opciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for u in empleados%}
+                    <tr>
+                        <td>{{ u[0]}}</td>
+                        <td>{{ u[1]}}</td>
+                        <td>{{ u[2]}}</td>
+                        <td>{{ u[3]}}</td>
+                        <td>{{ u[4]}}</td>
+                        <td>{{ u[5]}}</td>
+                        <td>{{ u[6]}}</td>
+                        <td>{{ u[7]}}</td>
+                        <td>{{ u[8]}}</td>
+                        <td>{{ u[9]}}</td>
+                        <td>{{ u[10]}}</td>
+                        <td>
+                            <a href="" class="btn btn-warning btn-sm">Editar</a> 
+
+                            <a href="{{url_for('eliminarempleado', id=u[0])}}" class="btn btn-primary btn-sm" 
+                            onclick="return confirm('¿Seguro que quiere eliminar el usaurio?')">Eliminar</a> 
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
             </div>
         </div>
     </body>
