@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-03-2026 a las 18:16:43
+-- Tiempo de generación: 10-04-2026 a las 20:32:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,7 +44,7 @@ INSERT INTO `departamentos` (`idArea`, `NombreDepartamento`) VALUES
 (7, 'Aseo'),
 (8, 'Red de medios'),
 (9, 'Gerente'),
-(10, '1');
+(10, 'Sistemas');
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ INSERT INTO `empleados` (`id`, `DocumentoEmplea`, `NombreEmplea`, `ApellidoEmple
 (5, '1028883619', 'Sebastian', 'Barragan', 'Administracion', 2290000.00, 30, 400000.00, 91600.00, 91600.00, 2106800.00, 1),
 (6, '28540', 'Luisa', 'Serrato', 'Gerente', 25090000.00, 30, 20000000.00, 1003600.00, 1003600.00, 23082800.00, 1),
 (8, '548954', 'Amaury', 'Hernandez', 'Contador', 3400120.00, 40, 600000.00, 136004.80, 0.00, 3264115.20, 5),
-(9, '28', 'Sebastian', 'Perez', 'Contador', 4800060.00, 20, 2000000.00, 192002.40, 0.00, 4608057.60, 1);
+(10, '10247981741', 'Karen', 'Prieto', 'contador', 3090000.00, 30, 200000.00, 123600.00, 123600.00, 2842800.00, 1);
 
 -- --------------------------------------------------------
 
@@ -100,10 +100,9 @@ INSERT INTO `usuarios` (`idUsuario`, `Usuario`, `PASSWORD`, `rol`, `DocumentoEmp
 (1, 'joansua897', '34567', 'empleado', '1029838282'),
 (2, 'sebasjuan13', '123456', 'empleado', '1028883619'),
 (3, 'Admin', '201508', 'Administrador', NULL),
-(6, 'Luisa', '1234', 'empleado', '28540'),
 (7, 'Amaury', '4878', 'empleado', '548954'),
-(8, 'pepe', '2828', 'empleado', '28'),
-(9, 'pepe', '84845', 'Empleado', '28');
+(12, 'joanjoansuarez12', '3456', 'Empleado', '1029838282'),
+(13, 'Santiago', '54884', 'Empleado', '28540');
 
 --
 -- Índices para tablas volcadas
@@ -144,13 +143,13 @@ ALTER TABLE `departamentos`
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas

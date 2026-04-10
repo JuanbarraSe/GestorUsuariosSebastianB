@@ -176,27 +176,35 @@ def registroempleado():
     con.close()
     return redirect(url_for("inicio"))
 
-#Eliminar empleado
-@apps.route("/eliminarempleado")
-def eliminarempleado():
+#Eliminar el empleado
+@apps.route("/eliminarempleado/<int:id>")
+def eliminarempleado(id):
+    
     if "usuario" not in session:
         return redirect(url_for("login"))
     
     con = conectar()
     cursor = con.cursor()
 
-    #Eliminar el empleado
-    sql = "DELETE * FROM empleados"
-    cursor.execute(sql)
+    sqlEmple = "SELECT DocumentoEmplea FROM empleados WHERE id=%s"
+    cursor.execute(sqlEmple,(id,))
+    resultado = cursor.fetchone()
 
-    empleado = cursor.fetchone()
-    if empleado:
-        
-    flash("Empleado eliminado")
+    if resultado:
+        documento = resultado[0]
+        sql = "DELETE FROM usuarios WHERE DocumentoEmplea=%s"
+        cursor.execute(sql,(documento,))
 
-    cursor.close()
-    con.close()
+        sql2 = "DELETE FROM empleados WHERE id=%s"
+        cursor.execute(sql2,(id,))
+        con.commit()
+        flash("Empleado eliminado")
+    else: 
+        flash("Empleado no eliminado")
+        cursor.close()
+        con.close()
     return redirect(url_for("inicio"))
+
 
 if __name__ == "__main__":
     apps.run(debug=True)
