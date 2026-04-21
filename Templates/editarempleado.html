@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registro</title>
+        <meta charset="UTF-8">
+        <!---Llamar al estilo de la pagina-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    </head>
+
+    <body class="container mt-5">
+        <h2>EDITAR EMPLEADOS</h2>
+        <form method="POST" action="{{url_for('actualizar_empleados')}}">
+
+            <input type="hidden" name="id" value="{{user[0]}}">
+            <div class=" mb-3">
+                <label>Documento Empleado:</label>
+                <input type="text" name="txtdocumentoempleado" class="form-control" value="{{user[1]}}">
+            </div>
+            <div class=" mb-3">
+                <label>Nombre del Empleado:</label>
+                <input type="text" name="txtnombreempleado" class="form-control" value="{{user[2]}}">
+            </div>
+            <div class="mb-3">
+                <label>Apellido del Empleado:</label>
+                <input type="text" name="txtapellidoempleado" class="form-control" value="{{user[3]}}">
+            </div>
+            <div class="mb-3">
+                <label>Cargo:</label>
+                <input type="text" name="txtcargo" class="form-control" value="{{user[4]}}">
+            </div>
+            <div class=" mb-3">
+                <label>Salario Base:</label>
+                <input type="number" name="txtsalario" class="form-control" value="{{user[5]}}">
+            </div>
+            <div class="mb-3">
+                <label>Horas Extras:</label>
+                <input type="number" name="txthorasextras" class="form-control" value="{{user[6]}}">
+            </div>
+            <div class=" mb-3">
+                <label>Bonificación:</label>
+                <input type="number" name="txtbonificacion" class="form-control" value="{{user[7]}}">
+            </div>
+            <div class=" mb-3">
+                <label>Salud:</label>
+                <input type="text" name="txtsaludempleado" class="form-control" value="{{user[8]}}">
+            </div>
+            <div class=" mb-3">
+                <label>Pension:</label>
+                <input type="number" name="txtpension" class="form-control" value="{{user[9]}}">
+            </div>
+            <div class=" mb-3">
+                <label>Salario Neto:</label>
+                <input type="number" name="txtsalarioneto" class="form-control" value="{{user[10]}}">
+            </div>
+            <div class=" mb-3">
+                <label>id del departamento:</label>
+                <input type="number" name="txtdepartamento" class="form-control" value="{{user[11]}}">
+            </div>
+            <button class="btn-primary">Actualizar</button>
+        
+        </form>
+    </body>
+</html>

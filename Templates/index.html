@@ -50,10 +50,10 @@
                             <td>{{ u[2]}}</td>
                             <td>{{ u[3]}}</td>
                             <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{{url_for('editarusu', id=u[0])}}" class="btn btn-warning btn-sm">Editar</a>
 
                                 <a href="{{ url_for('eliminarusu', id=u[0]) }}" class="btn btn-primary btn-sm"
-                                onclick = "return confirm('¿Seguro que desea eliminar el usuario')">Eliminar</a>
+                  -              onclick = "return confirm('¿Seguro que desea eliminar el usuario')">Eliminar</a>
                             </td>
                         </tr>
 
@@ -82,23 +82,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {%for u in empleados%}
+                    {% for e in empleados%}
                     <tr>
-                        <td>{{ u[0]}}</td>
-                        <td>{{ u[1]}}</td>
-                        <td>{{ u[2]}}</td>
-                        <td>{{ u[3]}}</td>
-                        <td>{{ u[4]}}</td>
-                        <td>{{ u[5]}}</td>
-                        <td>{{ u[6]}}</td>
-                        <td>{{ u[7]}}</td>
-                        <td>{{ u[8]}}</td>
-                        <td>{{ u[9]}}</td>
-                        <td>{{ u[10]}}</td>
+                        <td>{{ e[0]}}</td>
+                        <td>{{ e[1]}}</td>
+                        <td>{{ e[2]}}</td>
+                        <td>{{ e[3]}}</td>
+                        <td>{{ e[4]}}</td>
+                        <td>{{ e[5]}}</td>
+                        <td>{{ e[6]}}</td>
+                        <td>{{ e[7]}}</td>
+                        <td>{{ e[8]}}</td>
+                        <td>{{ e[9]}}</td>
+                        <td>{{ e[10]}}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">Editar</a> 
+                            <a href="{{url_for('editarempleado', id=e[0])}}" class="btn btn-warning btn-sm">Editar</a> 
 
-                            <a href="{{url_for('eliminarempleado', id=u[0])}}" class="btn btn-primary btn-sm" 
+                            <a href="{{url_for('eliminarempleado', id=e[0])}}" class="btn btn-primary btn-sm" 
                             onclick="return confirm('¿Seguro que quiere eliminar el usaurio?')">Eliminar</a> 
                         </td>
                     </tr>

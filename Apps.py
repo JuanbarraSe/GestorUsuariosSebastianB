@@ -206,5 +206,86 @@ def eliminarempleado(id):
     return redirect(url_for("inicio"))
 
 
+#Editar usuarios
+@apps.route("/editarusu/<int:id>")
+def editarusu(id):
+
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql1 = "SELECT * FROM usuarios WHERE idUsuario=%s"
+
+    cursor.execute(sql1,(id,))
+    usuario = cursor.fetchone()
+    con.commit()
+    
+    return render_template("editarusuario.html", user=usuario)
+
+#Actulizar la informacion del formulario
+@apps.route("/actualizar", methods=["POST"])
+def actualizar_usuarios():
+
+    id = request.form["id"]
+    usuario = request.form["txtusuario"]
+    password =request.form["txtpassword"]
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql = "UPDATE usuarios SET Usuario=%s, PASSWORD=%s WHERE idUsuario=%s"
+
+    cursor.execute(sql,(usuario,password,id))
+    con.commit()
+    cursor.close()
+    con.close()
+
+    print("Usuario actualizado")
+
+    return redirect(url_for('inicio'))
+
+#Editar empleado
+@apps.route("/editarempleado/<int:id>")
+def editarempleado(id):
+
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql1 = "SELECT * FROM empleados WHERE id=%s"
+
+    cursor.execute(sql1,(id,))
+    empleado = cursor.fetchone()
+    con.commit()
+    
+    return render_template("editarempleado.html", user=empleado)
+
+#Actulizar la informacion del formulario
+@apps.route("/actualizarempleado", methods=["POST"])
+def actualizar_empleados():
+    id = request.form["id"]
+    documentoempleado = request.form["txtdocumentoempleado"]
+    nombreempleado = request.form["txtnombreempleado"]
+    apellidoempleado = request.form["txtapellidoempleado"]
+    cargo = request.form["txtcargo"] 
+    horasextras = request.form["txthorasextras"]
+    bonificacion = request.form["txtbonificacion"]
+    iddepartamento = request.form["txtdepartamento"]
+    con = conectar()
+    cursor = con.cursor()
+
+    sql = "UPDATE empleados SET DocumentoEmplea=%s, NombreEmplea=%s, ApellidoEmplea=%s, Cargo=%s, HorasExtras=%s, Bonificacion=%s, idDepa=%s WHERE id=%s"
+
+    cursor.execute(sql,(documentoempleado,nombreempleado,apellidoempleado,cargo,horasextras,bonificacion,iddepartamento,id))
+    con.commit()
+    cursor.close()
+    con.close()
+
+    return redirect(url_for("inicio"))
+
 if __name__ == "__main__":
     apps.run(debug=True)
