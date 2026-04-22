@@ -36,7 +36,7 @@ def login_form():
             if user[3] == "Administrador":
                 return redirect(url_for('inicio'))
             else:
-                return "Bienvenido empleado"
+                return redirect(url_for("perfil"))
     else: 
         flash("Usuario y contraseña incorrecta", "danger")
         return redirect(url_for("login"))
@@ -286,6 +286,78 @@ def actualizar_empleados():
     con.close()
 
     return redirect(url_for("inicio"))
+
+#Perfil 
+@apps.route("/perfil")
+def perfil():
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+    
+    usuario = session["usuario"]
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql = """SELECT e.id, e.NombreEmplea, e.ApellidoEmplea, e.Cargo, e.HorasExtras, e.Bonificacion, e.SalarioB, e.Salud, e.Pension, e.SalarioNeto FROM empleados e INNER JOIN usuarios u ON e.DocumentoEmplea = u.DocumentoEmplea WHERE u.Usuario = %s """
+    cursor.execute(sql, (usuario,))
+    usuario = cursor.fetchone()
+
+    cursor.close()
+    con.close()
+
+    return render_template("panelempleado.html", usuario=usuario)
+
+# Mostrar formulario para editar sus propios datos
+@apps.route("/actualizardatos/<int:id>")
+def actualizardatos(id):
+
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql = "SELECT * FROM empleados WHERE id=%s"
+    cursor.execute(sql, (id,))
+    empleado = cursor.fetchone()
+
+    cursor.close()
+    con.close()
+
+    return render_template("actualizardatos.html", empleado=empleado)
+
+
+#Guardar cambios en la base de datos
+@apps.route("/guardaractualizacion", methods=["POST"])
+def guardaractualizacion():
+
+    if "usuario" not in session:
+        return redirect(url_for("login"))
+
+    id = request.form["id"]
+    nombre = request.form["txtnombre"]
+    apellido = request.form["txtapellido"]
+    cargo = request.form["txtcargo"]
+    departamento = request.form["txtdepartamento"]
+
+    # Validación básica
+    if nombre == "" or apellido == "" or cargo == "" or departamento == "":
+        flash("Todos los campos son obligatorios")
+        return redirect(url_for("inicio"))
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql = "UPDATE empleados SET NombreEmplea=%s, ApellidoEmplea=%s, Cargo=%s, idDepa=%s WHERE id=%s"
+
+    cursor.execute(sql, (nombre, apellido, cargo, departamento, id))
+    con.commit()
+
+    cursor.close()
+    con.close()
+
+    flash("Datos actualizados correctamente")
+    return redirect(url_for("perfil"))
 
 if __name__ == "__main__":
     apps.run(debug=True)
